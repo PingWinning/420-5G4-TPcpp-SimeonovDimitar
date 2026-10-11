@@ -20,6 +20,8 @@ Book:: Book(const string& title, const string& author, const string& isbn) {
     borrowerId = "";
 }
 
+// Getters
+
 string Book:: getTitle() const {
     return title;
 }
@@ -39,5 +41,28 @@ bool Book:: getAvailability() const {
 string Book:: getBorrowerId() const {
     return borrowerId;
 }
+
+// Setters
+
+void Book:: setTitle(const string& title) {
+    this->title = title;
+}
+
+void Book:: setAuthor(const string& author) {
+    this->author = author;
+}
+
+void Book:: setISBN(const string& isbn) {
+    this->isbn = isbn;
+}
+
+void Book:: setAvailability(bool available) {
+    isAvailable = available;
+}
+
+void Book:: setBorrowerId(const string& id) {
+    borrowerId = id;
+}
+
 
 
