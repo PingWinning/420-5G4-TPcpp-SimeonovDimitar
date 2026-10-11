@@ -94,4 +94,15 @@ string Book::toString() const {
     return oss.str();
 }
 
-
+string Book::toFileFormat() const {
+    ostringstream oss;
+    oss << title << "|" << author << "|" << isbn << "|"; 
+    
+    if (isAvailable) {
+        oss << "1";
+    } else {
+        oss << "0";
+    }
+    oss << "|" << borrowerId;
+    return oss.str();
+}
