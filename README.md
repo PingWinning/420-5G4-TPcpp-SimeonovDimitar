@@ -1,3 +1,8 @@
+# TP C++ - Gestion de bibliothèque
+
+**Nom :** Simeonov, Dimitar
+**Numéro de DA :** 2043761
+
 # Construire le projet
 Vous pouvez utiliser un dev container de base C++ de VScode.
 Le projet utilise cmake, pensez à l'inclure dans votre dev container.
