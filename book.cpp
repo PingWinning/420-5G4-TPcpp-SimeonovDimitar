@@ -64,5 +64,34 @@ void Book:: setBorrowerId(const string& id) {
     borrowerId = id;
 }
 
+// Methods
+
+void Book:: checkOut(const string& borrowerId) {
+    setAvailability(false);
+    setBorrowerId(borrowerId);
+}
+
+void Book:: returnBook() {
+    setAvailability(true);
+    setBorrowerId("");
+}
+
+string Book::toString() const {
+    // ostringstream fonctionne comme cout, mais écrit dans une string
+    ostringstream oss;
+    oss << "Titre: " << title << "\n"
+        << "Auteur: " << author << "\n"
+        << "ISBN: " << isbn << "\n"
+        << "Statu: ";
+
+    if (isAvailable) {
+        oss << "Disponible";
+    } else {
+        oss << "Emprunté par : " << borrowerId;
+    }
+
+    // Récupère le texte construit
+    return oss.str();
+}
 
 
