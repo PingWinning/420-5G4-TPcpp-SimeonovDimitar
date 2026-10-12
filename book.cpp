@@ -106,3 +106,26 @@ string Book::toFileFormat() const {
     oss << "|" << borrowerId;
     return oss.str();
 }
+
+void Book::fromFileFormat(const string& line) {
+    int pos = 0;
+    int index = 0;
+    string champs[5]; // chaque champ vaut "" par défaut
+    string tempLine = line; // créer une copie de la ligne pour ne pas modifier l'originale
+
+    //[debug] string::npos : valeur retournée par find quand le caractère n'est pas trouvé != -1
+    while (tempLine.find('|') != string::npos && index < 5) {
+        tempLine = tempLine.substr(pos);
+        // TODO : éventuellement ajouter une méthode trim() pour enlever les espaces
+        //        au début et à la fin de chaque champ 
+        champs[index] = tempLine.substr(0, tempLine.find('|'));
+        pos = tempLine.find('|') + 1;
+        index++;
+    }
+
+    setTitle(champs[0]);
+    setAuthor(champs[1]);
+    setISBN(champs[2]);
+    setAvailability(champs[3] == "1");
+    setBorrowerId(champs[4]); 
+}
