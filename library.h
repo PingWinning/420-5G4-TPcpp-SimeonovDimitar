@@ -38,8 +38,9 @@ public:
     bool returnBook(const string& isbn);
     
     // Display methods
-    void displayAllBooks();
-    void displayAvailableBooks();
+    void displayAllBooks(int triOption = 0); // 0: No sort, 1: Sort by title, 2: Sort by author
+    void displayAvailableBooks(int triOption = 0); // 0: No sort, 1: Sort by title, 2: Sort by author
+    void trierLivres(vector<Book*>& livres, int triOption); // 0: No sort, 1: Sort by title, 2: Sort by author
     void displayAllUsers();
     
     // Statistics

@@ -45,6 +45,30 @@ string getInput(const string& prompt) {
     return input;
 }
 
+// Demande à l'utilisateur comment trier l'affichage des livres.
+// Retourne 1 (par titre), 2 (par auteur) ou 0 (aucun tri).
+int demanderTri() {
+    cout << "\n--- OPTIONS DE TRI ---\n";
+    cout << "1. Trier par titre (ordre alphabétique)\n";
+    cout << "2. Trier par auteur (ordre alphabétique)\n";
+    cout << "3. Aucun tri \n";
+    string choix = getInput("Comment voulez-vous trier les livres ? ");
+
+    int option = 0;   // par défaut : aucun tri
+
+    if (choix == "1") {
+        option = 1;
+        cout << "Tri par titre appliqué.\n";
+    } else if (choix == "2") {
+        option = 2;
+        cout << "Tri par auteur appliqué.\n";
+    } else if (choix != "3") {
+        cout << "Choix invalide : les livres seront affichés sans tri.\n";
+    }
+
+    return option;
+}
+
 void printUsage(const char* programName) {
     cerr << "Usage: " << programName << " [--data-dir|-d <répertoire>]\n";
 }
@@ -177,17 +201,41 @@ int main(int argc, char* argv[]) {
                 break;
             }
             
-            case 5: // Display All Books
-                library.displayAllBooks();
-                fileManager.logOperation("AFFICHAGE LIVRE", "Affichage de tous les livres.");
+            case 5: { // Display All Books
+                int triOption = demanderTri();
+                library.displayAllBooks(triOption);
+
+                string description = "Affichage de tous les livres ";
+                if (triOption == 1) {
+                    description += "triés par titre.";
+                } else if (triOption == 2) {
+                    description += "triés par auteur.";
+                } else {
+                    description += "sans tri.";
+                }
+                fileManager.logOperation("AFFICHAGE LIVRE", description);
+
                 pauseForInput();
                 break;
-            
-            case 6: // Display Available Books
-                library.displayAvailableBooks();
-                fileManager.logOperation("AFFICHAGE LIVRE", "Affichage des livres disponibles.");
+            }
+
+            case 6: { // Display Available Books
+                int triOption = demanderTri();
+                library.displayAvailableBooks(triOption);
+
+                string description = "Affichage des livres disponibles ";
+                if (triOption == 1) {
+                    description += "triés par titre.";
+                } else if (triOption == 2) {
+                    description += "triés par auteur.";
+                } else {
+                    description += "sans tri.";
+                }
+                fileManager.logOperation("AFFICHAGE LIVRE", description);
+
                 pauseForInput();
                 break;
+            }
             
             case 7: { // Add User
                 string name = getInput("Entrez le nom de l'utilisateur : ");
