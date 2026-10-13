@@ -133,10 +133,17 @@ int main(int argc, char* argv[]) {
                 string title = getInput("Entrez le titre du livre : ");
                 string author = getInput("Entrez l'auteur du livre : ");
                 string isbn = getInput("Entrez l'ISBN du livre : ");
+
+                Book* doublon = library.findDuplicate(title, author, isbn);
                 
                 if (library.findBookByISBN(isbn)) {
                     cout << "Erreur : Un livre avec l'ISBN " << isbn << " existe déjà.\n";
                     fileManager.logOperation("ERREUR", "Tentative d'ajout d'un livre avec un ISBN existant : " + isbn);
+                }else if (doublon != nullptr) {
+                    cout << "Erreur : Ce livre existe déjà dans la bibliothèque :\n"
+                        << "  \"" << doublon->getTitle() << "\" de " << doublon->getAuthor()
+                        << " (ISBN " << doublon->getISBN() << ")\n";
+                    fileManager.logOperation("ERREUR", "Tentative d'ajout d'un doublon : " + title + "|" + author + "|" + isbn);
                 } else {
                     Book newBook(title, author, isbn);
                     library.addBook(newBook);

@@ -43,6 +43,10 @@ public:
     void trierLivres(vector<Book*>& livres, int triOption); // 0: No sort, 1: Sort by title, 2: Sort by author
     void displayAllUsers();
     
+    // Trouver les doublons de livres (même ISBN ou même titre + auteur)
+    // même ISBN (sans tirets/espaces) OU même titre + auteur (sans majuscules)
+    Book* findDuplicate(const string& title, const string& author, const string& isbn);
+    
     // Statistics
     int getTotalBooks() const;
     int getAvailableBookCount() const;

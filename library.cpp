@@ -218,6 +218,38 @@ void Library::displayAllUsers() {
     }
 }
 
+// Retire les tirets et les espaces d'un ISBN (ex : "978-2-07-038001-5" → "9782070380015")
+string nettoyerISBN(const string& isbn) {
+    string resultat = "";
+    for (char caractere : isbn) {
+        if (caractere != '-' && caractere != ' ') {
+            resultat += caractere;
+        }
+    }
+    return resultat;
+}
+
+Book* Library::findDuplicate(const string& title, const string& author, const string& isbn) {
+    string cleanedISBN = nettoyerISBN(isbn);
+    string lowerTitle = title;
+    string lowerAuthor = author;
+    transform(lowerTitle.begin(), lowerTitle.end(), lowerTitle.begin(), ::tolower);
+    transform(lowerAuthor.begin(), lowerAuthor.end(), lowerAuthor.begin(), ::tolower);
+
+    for (auto& book : books) {
+        string bookISBN = nettoyerISBN(book->getISBN());
+        string bookTitle = book->getTitle();
+        string bookAuthor = book->getAuthor();
+        transform(bookTitle.begin(), bookTitle.end(), bookTitle.begin(), ::tolower);
+        transform(bookAuthor.begin(), bookAuthor.end(), bookAuthor.begin(), ::tolower);
+
+        if (bookISBN == cleanedISBN || (bookTitle == lowerTitle && bookAuthor == lowerAuthor)) {
+            return book.get(); // Retourne le livre en double trouvé
+        }
+    }
+    return nullptr; // Aucun doublon trouvé
+}
+
 // Statistics
 int Library::getTotalBooks() const { return books.size(); }
 int Library::getAvailableBookCount() const {
