@@ -317,11 +317,11 @@ int main(int argc, char* argv[]) {
             case 12: { // Save Data
                 if (fileManager.saveLibraryData(library)) {
                     cout << "Données de la bibliothèque sauvegardées avec succès !\n";
+                    fileManager.logOperation("SAUVEGARDE LIVRE", "Données de la bibliothèque sauvegardées.");
                 } else {
                     cout << "Erreur lors de la sauvegarde des données de la bibliothèque.\n";
                     fileManager.logOperation("ERREUR", "Échec de la sauvegarde des données de la bibliothèque.");
                 }
-                fileManager.logOperation("SAUVEGARDE LIVRE", "Données de la bibliothèque sauvegardées.");
                 pauseForInput();
                 break;
             }
